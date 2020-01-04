@@ -16,19 +16,23 @@
  #include <iostream>
 
  using namespace std;
+ 
  void print()
  {
      cout << "hello world" << endl;
  }
- 
- TimerQueue tq;
- Timestamp now(Timestamp::now());
- Timestamp t = now +1.0; // 从现在开始的1s后
- TimerId timerId = tq.add_timer(print,t);
- 
- // 关于定时器的取消
- tq.cancel_timer(&timerId);
- tq.wait();
+ int main()
+ {
+   TimerQueue tq;
+   Timestamp now(Timestamp::now());
+   Timestamp t = now +1.0; // 从现在开始的1s后
+   TimerId timerId1 = tq.add_timer(print,t);
+   
+   TimerId timerId2 = tq.add_timer(print,t + 1.0);
+   
+   tq.cancel_timer(&timerId2); // 关于定时器的取消
+   tq.wait();
+ }
  ```
 
 
