@@ -19,4 +19,7 @@
  
  // 关于定时器的取消
  tq.cancel_timer(&timerId);
+ tq.wait();
  ```
+
+
