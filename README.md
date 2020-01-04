@@ -11,7 +11,7 @@
      * 如果timerqueue中没有timer,设置timerfd的时间为从现在开始的100ms后
      
  # 使用
- 
+ ```cpp
  TimerQueue tq;
  Timestamp now(Timestamp::now());
  Timestamp t = now +1.0; // 从现在开始的1s后
@@ -19,4 +19,4 @@
  
  // 关于定时器的取消
  tq.cancel_timer(&timerId);
- 
+ ```
