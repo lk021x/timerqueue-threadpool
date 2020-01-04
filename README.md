@@ -1,8 +1,22 @@
 # 结合线程池的定时器设计
 
-* 定时器到期后, 将timer从timerqueue中移除,并重新设置时间. 将timer的回调函数添加到线程池的task队列
-
-* 重新设置时间的两个场合
-  * 新添加timer时, 这个timer更早到期
-  * 一个定时器到期
+* 在timerqueue中有一个loop线程和线程池
+   * loop线程负责设置定时器,更新timerfd的时间,将过期的定时器从timerqueue中移除,以及取消timer
+   * 当定时器到期后, loop线程会将timer的回调添加到线程池的task队列,线程池负责定时器回调函数的执行
+ 
+ * 更新timerfd时间的场合
+   * 新添加定时器时, 这个定时器更早到期
+   * 一个定时器到期后,loop线程将会移除timerqueue中的所有已经到期的timer
+     * 如果timerqueue中还有timer,则用最早到期的timer的时间设置timerfd的时间
+     * 如果timerqueue中没有timer,设置timerfd的时间为从现在开始的100ms后
+     
+ # 使用
+ 
+ TimerQueue tq;
+ Timestamp now(Timestamp::now());
+ Timestamp t = now +1.0; // 从现在开始的1s后
+ TimerId timerId = tq.add_timer(func,t);
+ 
+ // 关于定时器的取消
+ tq.cancel_timer(&timerId);
  
