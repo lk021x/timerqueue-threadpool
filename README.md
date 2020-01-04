@@ -12,10 +12,19 @@
      
  # 使用
  ```cpp
+ #include "TimerQueue.h"
+ #include <iostream>
+
+ using namespace std;
+ void print()
+ {
+     cout << "hello world" << endl;
+ }
+ 
  TimerQueue tq;
  Timestamp now(Timestamp::now());
  Timestamp t = now +1.0; // 从现在开始的1s后
- TimerId timerId = tq.add_timer(func,t);
+ TimerId timerId = tq.add_timer(print,t);
  
  // 关于定时器的取消
  tq.cancel_timer(&timerId);
