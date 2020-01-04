@@ -109,8 +109,6 @@ public:
     {
         stopped = true;
         exe_threads.stop();
-        for(auto it = timers_queue.begin(); it!=timers_queue.end(); ++it)
-            delete it->getTimer();
     }
 
     void wait()
