@@ -18,7 +18,7 @@ int main()
     {
         tq.add_timer(fun,now + i);
     }
-    tq.add_timer(fun, 2020, 1, 6, 19, 20, 20,20); // 在2019-1-6 19:20:20:20执行fun
+    tq.add_timer(fun, 2020, 1, 6, 19, 20, 20,20); // 在2019-1-6 19:20:20:20执行fun, 这个时间是本机时间而不是GMT时间
     tq.wait();
 }
 
