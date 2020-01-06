@@ -18,7 +18,7 @@ int main()
     {
         tq.add_timer(fun,now + i);
     }
-    
+    tq.add_timer(fun, 2020, 1, 6, 19, 20, 20,20); // 在2019-1-6 19:20:20:20执行fun
     tq.wait();
 }
 
