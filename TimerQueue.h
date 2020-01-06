@@ -104,8 +104,6 @@ public:
     {
         Timestamp when(year, month , day, hour, minute, sec, mirSec);
         Timestamp now(Timestamp::now());
-        std::cout << "now :  " << now.toString() << " " << std::endl;
-        std::cout << "timer: " << when.toString() << " "  << std::endl;
         if(now <= when && ((when.microSecondsSinceEpoch() - now.microSecondsSinceEpoch()) > 100))
             return add_timer(cb,when);
         else
