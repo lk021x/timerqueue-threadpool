@@ -6,7 +6,6 @@
 
 
 
-    // Timestamp时间为GMT时间,不是当前地区的时间
     class Timestamp
     {
     public:
@@ -25,7 +24,7 @@
             std::swap(microSecondsSinceEpoch_,that.microSecondsSinceEpoch_);
         }
 
-        std::string toString() const // 返回一个以字符串形式表示的时间值, 格式为: xx.xx秒 
+        std::string toString() const 
         {
             char buf[32] = {0};
             int64_t seconds = microSecondsSinceEpoch_ / kMicroSecondsPerSecond;
@@ -42,12 +41,12 @@
             return microSecondsSinceEpoch_;
         }
 
-        time_t secondsSinceEpoch() const // 从1970.0.0 0:00以来的秒数
+        time_t secondsSinceEpoch() const 
         {
             return static_cast<time_t> (microSecondsSinceEpoch_ / kMicroSecondsPerSecond );
         }
 
-        static Timestamp now() // 获取当前时间,精确到微秒
+        static Timestamp now() 
         {
             struct timeval tv;
             gettimeofday(&tv,NULL);
@@ -55,12 +54,12 @@
             return Timestamp(seconds * kMicroSecondsPerSecond + tv.tv_usec);
         }
 
-        static Timestamp invalidTimestamp() // 返回一个值为0的无效时间戳
+        static Timestamp invalidTimestamp() 
         {
             return Timestamp();
         }
 
-        static Timestamp fromUnixTime(time_t t) // 在Linux/UNIX中返回的时间是从1970,1.1 0:00以来的秒数, 要把它转换成从1970 1.1 0:00以来的微秒数
+        static Timestamp fromUnixTime(time_t t) 
         {
             return fromUnixTime(t,0);
         }
@@ -88,7 +87,6 @@
                     tm_time.tm_year + 1900, tm_time.tm_mon + 1, tm_time.tm_mday,
                     tm_time.tm_hour, tm_time.tm_min, tm_time.tm_sec,
                     microseconds);
-             //   printf("time:%s\n",buf);
             }
             else
             {
@@ -112,7 +110,7 @@
 
         
     private:
-          int64_t  microSecondsSinceEpoch_;  // 自1970.1.1 0:00以来的微秒数  
+          int64_t  microSecondsSinceEpoch_;  
           int64_t secondsSinceEpoch(int year, int month, int day , int hour, int minute, int sec)
         {
             struct tm t;
