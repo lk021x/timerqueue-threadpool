@@ -107,7 +107,7 @@ public:
         if(now <= when && ((when.microSecondsSinceEpoch() - now.microSecondsSinceEpoch()) > 100))
             return add_timer(cb,when);
         else
-            return NULL;
+            return TimerId();
     }
     
     std::thread *getloopThread()
