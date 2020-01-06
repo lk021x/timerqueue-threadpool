@@ -2,6 +2,8 @@
 #include <string>
 #include <ctime>
 #include <inttypes.h> // PRId64
+#include <time.h>
+
 
 
     // Timestamp时间为GMT时间,不是当前地区的时间
@@ -12,7 +14,12 @@
 
         explicit Timestamp(int64_t microSecondsSinceEpochArg) : microSecondsSinceEpoch_(microSecondsSinceEpochArg)
         { }
+        
+        Timestamp(int year, int month, int day , int hour, int minute, int sec, int mirSec)
+            : microSecondsSinceEpoch_(secondsSinceEpoch(year,month , day , hour , minute, sec)*kMicroSecondsPerSecond + mirSec*1000)
+        {
 
+        }
         void swap(Timestamp &that)
         {
             std::swap(microSecondsSinceEpoch_,that.microSecondsSinceEpoch_);
@@ -106,6 +113,16 @@
         
     private:
           int64_t  microSecondsSinceEpoch_;  // 自1970.1.1 0:00以来的微秒数  
+          int64_t secondsSinceEpoch(int year, int month, int day , int hour, int minute, int sec)
+        {
+            struct tm t;
+            char format[32] = "%H:%M:%S %d %m %Y" ; 
+            char buf[32] ;
+            sprintf(buf,"%d:%d:%d %d %d %d", hour,minute,sec,day,month,year);
+            strptime(buf,format, &t);
+            
+            return mktime(&t);
+        }
     };
 
     bool operator<=(Timestamp t1,Timestamp t2)
