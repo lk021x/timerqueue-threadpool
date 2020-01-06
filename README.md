@@ -29,7 +29,7 @@
    TimerId timerId1 = tq.add_timer(print,t);
    
    TimerId timerId2 = tq.add_timer(print,t + 1.0);
-   
+   TimerId timerId3 = tq.add_timer(print, 2020, 1, 10, 19, 33, 12, 10); // 在2020-1-10 19:33:12:10执行print
    tq.cancel_timer(&timerId2); // 关于定时器的取消
    tq.wait();
  }
