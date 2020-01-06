@@ -3,9 +3,10 @@
 
 using namespace std;
 
-void fun(int i)
+void fun()
 {
-    cout << i << endl;
+    Timestamp now(Timestamp::now());
+    cout << now.toFormattedString() << endl;
 }
 
 int main()
@@ -13,9 +14,9 @@ int main()
     TimerQueue tq;
     Timestamp now(Timestamp::now());
 
-    for(int i=0;i<10;++i)
+    for(int i=0;i<60;++i)
     {
-        tq.add_timer(std::bind(fun,i),now + i);
+        tq.add_timer(fun,now + i);
     }
     
     tq.wait();
