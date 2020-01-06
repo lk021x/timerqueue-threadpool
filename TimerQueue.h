@@ -181,8 +181,8 @@ private:
             std::unique_lock<std::mutex> lck(mtx);
             for(iter_up = timers_queue.begin(); iter_up!=timers_queue.end(); ++iter_up)
             {
-                Timestamp Timestamp = iter_up->getTimer()->getExpiration();
-                if(Timestamp.microSecondsSinceEpoch() <= now.microSecondsSinceEpoch())
+                Timestamp ts = iter_up->getTimer()->getExpiration();
+                if(ts.microSecondsSinceEpoch() <= now.microSecondsSinceEpoch())
                 {
                     Callback cb = iter_up->getTimer()->getCallback();
                     if(iter_up->getTimer()->getCancelStatus()==false)
