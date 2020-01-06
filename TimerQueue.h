@@ -100,6 +100,18 @@ public:
         return add_timer(cb,when,0.0);
     }
     
+    TimerId add_timer(Callback cb, int year, int month, int day , int hour, int minute, int sec, int mirSec)
+    {
+        Timestamp when(year, month , day, hour, minute, sec, mirSec);
+        Timestamp now(Timestamp::now());
+        std::cout << "now :  " << now.toString() << " " << std::endl;
+        std::cout << "timer: " << when.toString() << " "  << std::endl;
+        if(now <= when && ((when.microSecondsSinceEpoch() - now.microSecondsSinceEpoch()) > 100))
+            return add_timer(cb,when);
+        else
+            return NULL;
+    }
+    
     std::thread *getloopThread()
     {
         return loop_thread;
